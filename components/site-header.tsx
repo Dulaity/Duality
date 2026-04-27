@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { CircleUserRound, ShoppingBag } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
 
 import { SignOutButton } from "@/components/sign-out-button";
 import { useCart } from "@/components/cart-provider";
@@ -20,6 +21,106 @@ function isActivePath(currentPath: string, href: string) {
   }
 
   return currentPath.startsWith(href);
+}
+
+function AccountMenu({
+  isAuthenticated,
+  pathname,
+}: {
+  isAuthenticated: boolean;
+  pathname: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    function handlePointerDown(event: PointerEvent) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div className="account-menu" ref={menuRef}>
+      <button
+        type="button"
+        className={`account-menu-trigger ${open ? "account-menu-trigger-active" : ""}`}
+        aria-label="Open account menu"
+        aria-expanded={open}
+        aria-haspopup="menu"
+        onClick={() => setOpen((value) => !value)}
+      >
+        <CircleUserRound className="h-5 w-5" aria-hidden="true" />
+      </button>
+
+      {open ? (
+        <div className="account-menu-panel" role="menu">
+          {isAuthenticated ? (
+            <>
+              <Link
+                href="/account"
+                className={`account-menu-item ${pathname === "/account" ? "account-menu-item-active" : ""}`}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                Account
+              </Link>
+              <Link
+                href="/account/orders"
+                className={`account-menu-item ${pathname.startsWith("/account/orders") ? "account-menu-item-active" : ""}`}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                Orders
+              </Link>
+              <SignOutButton className="account-menu-item account-menu-danger" />
+            </>
+          ) : (
+            <>
+              <Link
+                href="/signin"
+                className="account-menu-item"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/signup"
+                className="account-menu-item account-menu-item-active"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                Create account
+              </Link>
+            </>
+          )}
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 export function SiteHeader() {
@@ -57,46 +158,13 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
-            {status === "loading" ? null : isAuthenticated ? (
-              <>
-                <div className="header-action-group hidden md:flex">
-                  <Link
-                    href="/account"
-                    className={`header-action-link ${pathname === "/account" ? "header-action-link-active" : ""}`}
-                  >
-                    Account
-                  </Link>
-                  <Link
-                    href="/account/orders"
-                    className={`header-action-link ${pathname.startsWith("/account/orders") ? "header-action-link-active" : ""}`}
-                  >
-                    Orders
-                  </Link>
-                  <SignOutButton className="header-action-link" />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="header-action-group hidden md:flex">
-                  <Link href="/signin" className="header-action-link">
-                    Sign in
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="header-action-link header-action-link-active"
-                  >
-                    Create account
-                  </Link>
-                </div>
-              </>
+            {status === "loading" ? null : (
+              <AccountMenu
+                key={pathname}
+                isAuthenticated={isAuthenticated}
+                pathname={pathname}
+              />
             )}
-
-            <Link
-              href={isAuthenticated ? "/account" : "/signin"}
-              className="button-secondary inline-flex items-center justify-center px-3 py-2 text-sm md:hidden"
-            >
-              {isAuthenticated ? "Account" : "Sign in"}
-            </Link>
 
             <Link
               href="/cart"
@@ -122,14 +190,6 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            {isAuthenticated ? (
-              <Link
-                href="/account/orders"
-                className={`nav-link whitespace-nowrap ${pathname.startsWith("/account/orders") ? "nav-link-active" : ""}`}
-              >
-                Orders
-              </Link>
-            ) : null}
           </div>
         </nav>
       </div>

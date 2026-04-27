@@ -32,22 +32,30 @@ export function Reveal({
       return () => window.cancelAnimationFrame(frame);
     }
 
+    const fallback = window.setTimeout(() => {
+      setVisible(true);
+    }, 900);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          window.clearTimeout(fallback);
           setVisible(true);
           observer.disconnect();
         }
       },
       {
-        threshold: 0.18,
-        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.01,
+        rootMargin: "0px 0px 18% 0px",
       },
     );
 
     observer.observe(node);
 
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, []);
 
   const combinedClassName = `reveal${visible ? " reveal-in" : ""}${className ? ` ${className}` : ""}`;
