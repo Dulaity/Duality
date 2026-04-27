@@ -27,6 +27,20 @@ function getSignInErrorMessage(error: string | undefined) {
   }
 }
 
+function normalizePasswordInput(value: string) {
+  const trimmedValue = value.trim();
+  const envPasswordPrefix = "ADMIN_" + "PASSWORD=";
+
+  if (trimmedValue.startsWith(envPasswordPrefix)) {
+    return trimmedValue
+      .slice(envPasswordPrefix.length)
+      .trim()
+      .replace(/^["']|["']$/g, "");
+  }
+
+  return trimmedValue;
+}
+
 export function SignInForm({
   callbackUrl,
   error,
@@ -48,20 +62,32 @@ export function SignInForm({
     startTransition(async () => {
       setMessage("");
 
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-        callbackUrl,
-      });
+      try {
+        const normalizedEmail = email.trim().toLowerCase();
+        const normalizedPassword = normalizePasswordInput(password);
 
-      if (result?.error) {
-        setMessage(getSignInErrorMessage(result.error) || "Unable to sign in.");
-        return;
+        if (!normalizedEmail || !normalizedPassword) {
+          setMessage("Enter both email and password.");
+          return;
+        }
+
+        const result = await signIn("credentials", {
+          email: normalizedEmail,
+          password: normalizedPassword,
+          redirect: false,
+          callbackUrl,
+        });
+
+        if (result?.error) {
+          setMessage(getSignInErrorMessage(result.error) || "Unable to sign in.");
+          return;
+        }
+
+        router.push(result?.url ?? callbackUrl);
+        router.refresh();
+      } catch {
+        setMessage("Sign in could not be completed. Please try again.");
       }
-
-      router.push(result?.url ?? callbackUrl);
-      router.refresh();
     });
   }
 
@@ -117,6 +143,8 @@ export function SignInForm({
                 <input
                   required
                   type="email"
+                  name="email"
+                  autoComplete="email"
                   className="field"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
@@ -129,6 +157,8 @@ export function SignInForm({
                 <input
                   required
                   type="password"
+                  name="password"
+                  autoComplete="current-password"
                   className="field"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
@@ -146,7 +176,10 @@ export function SignInForm({
             </form>
 
             <div className="flex flex-col gap-3 text-sm leading-8">
-              <p className={message ? "text-white" : "text-white/42"}>
+              <p
+                role={message ? "alert" : undefined}
+                className={message ? "auth-error-message" : "text-white/42"}
+              >
                 {message || "Your session stays protected with secure cookies."}
               </p>
               <p className="text-white/42">

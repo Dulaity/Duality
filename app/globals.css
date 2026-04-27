@@ -887,6 +887,16 @@ section[id] {
   gap: 0.85rem;
 }
 
+.auth-error-message {
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 0.85rem 1rem;
+  color: #7f1d1d;
+  font-weight: 850;
+  line-height: 1.7;
+}
+
 .auth-note-grid {
   display: grid;
   gap: 0.8rem;
