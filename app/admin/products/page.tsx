@@ -27,6 +27,7 @@ export default async function AdminProductsPage() {
           <span>Product</span>
           <span>Price</span>
           <span>Stock</span>
+          <span>Images</span>
           <span>Status</span>
           <span>Action</span>
         </div>
@@ -40,6 +41,10 @@ export default async function AdminProductsPage() {
             </span>
             <span>{formatPrice(product.price)}</span>
             <span>{product.inventory}</span>
+            <span>
+              {product.storefrontImage ? "Storefront" : "No storefront"} /{" "}
+              {product.catalogImages.length} catalog
+            </span>
             <span>
               {product.active ? "Live" : "Hidden"}
               {product.featured ? " / Featured" : ""}

@@ -26,13 +26,18 @@ export type Product = {
     glow: string;
     text: string;
   };
+  storefrontImage: string | null;
+  catalogImages: string[];
   inventory: number;
   active: boolean;
   featured: boolean;
   soldOut: boolean;
 };
 
-type ProductSeed = Omit<Product, "active" | "featured" | "inventory" | "soldOut">;
+type ProductSeed = Omit<
+  Product,
+  "active" | "featured" | "inventory" | "soldOut" | "storefrontImage" | "catalogImages"
+>;
 
 export const defaultInventory = 24;
 
@@ -206,6 +211,8 @@ export const products: Product[] = productSeeds.map((product, index) => ({
   inventory: defaultInventory,
   active: true,
   featured: index < 4,
+  storefrontImage: null,
+  catalogImages: [],
   soldOut: false,
 }));
 

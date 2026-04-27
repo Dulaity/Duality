@@ -52,6 +52,8 @@ model Product {
   paletteAccent String
   paletteGlow String
   paletteText String
+  storefrontImage String?
+  catalogImages String[] @default([])
   inventory   Int      @default(0)
   active      Boolean  @default(true)
   featured    Boolean  @default(false)

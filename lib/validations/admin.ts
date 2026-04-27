@@ -12,6 +12,24 @@ const nonEmptyListSchema = z
   .min(1)
   .max(12);
 
+const imageDataSchema = z
+  .string()
+  .trim()
+  .refine(
+    (value) =>
+      value === "" ||
+      value.startsWith("data:image/jpeg;base64,") ||
+      value.startsWith("data:image/png;base64,") ||
+      value.startsWith("data:image/webp;base64,") ||
+      value.startsWith("https://") ||
+      value.startsWith("http://"),
+    "Use a PNG, JPG, WebP upload, or a valid image URL.",
+  )
+  .refine(
+    (value) => value.length <= 700_000,
+    "Each image must be under about 500 KB.",
+  );
+
 export const adminProductSchema = z.object({
   sku: z.string().trim().min(2).max(12).regex(/^[A-Z0-9-]+$/),
   slug: z
@@ -41,6 +59,8 @@ export const adminProductSchema = z.object({
     glow: hexColorSchema,
     text: hexColorSchema,
   }),
+  storefrontImage: imageDataSchema.optional().default(""),
+  catalogImages: z.array(imageDataSchema).max(5).optional().default([]),
   inventory: z.number().int().min(0).max(100000),
   active: z.boolean(),
   featured: z.boolean(),

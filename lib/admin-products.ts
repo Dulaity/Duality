@@ -27,6 +27,8 @@ export function toProductMutationData(
     paletteAccent: product.palette.accent,
     paletteGlow: product.palette.glow,
     paletteText: product.palette.text,
+    storefrontImage: product.storefrontImage || null,
+    catalogImages: product.catalogImages.filter(Boolean),
     inventory: product.inventory,
     active: product.active,
     featured: product.featured,

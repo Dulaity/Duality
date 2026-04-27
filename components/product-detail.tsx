@@ -22,6 +22,7 @@ export function ProductDetail({
   const [size, setSize] = useState(product.sizes[1] ?? product.sizes[0]);
   const [added, setAdded] = useState(false);
   const canAdd = cartCount < MAX_ORDER_QUANTITY && !product.soldOut;
+  const catalogImages = product.catalogImages.filter(Boolean);
 
   function handleAdd() {
     if (!canAdd) {
@@ -53,6 +54,16 @@ export function ProductDetail({
       <section className="detail-grid">
         <Reveal className="md:sticky md:top-28">
           <ProductStage product={product} large />
+          {catalogImages.length > 0 ? (
+            <div className="product-gallery mt-8">
+              {catalogImages.map((image, index) => (
+                <div key={`${image.slice(0, 32)}-${index}`} className="product-gallery-frame">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={image} alt={`${product.name} catalog view ${index + 1}`} />
+                </div>
+              ))}
+            </div>
+          ) : null}
         </Reveal>
 
         <Reveal className="space-y-10" delay={80}>

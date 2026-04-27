@@ -14,6 +14,7 @@ export function DualityStage({
   meta,
   title,
   footer,
+  image,
   large = false,
   className,
 }: {
@@ -21,13 +22,20 @@ export function DualityStage({
   meta: string;
   title: string;
   footer?: string;
+  image?: string | null;
   large?: boolean;
   className?: string;
 }) {
   const words = splitWords(title);
 
   return (
-    <div className={`stage-panel${large ? " stage-panel-large" : ""}${className ? ` ${className}` : ""}`}>
+    <div
+      className={`stage-panel${large ? " stage-panel-large" : ""}${image ? " stage-panel-with-image" : ""}${className ? ` ${className}` : ""}`}
+    >
+      {image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={image} alt={title} className="stage-image" />
+      ) : null}
       <div className="stage-copy">
         <div className="stage-top">
           <span>{label}</span>
@@ -61,6 +69,7 @@ export function ProductStage({
       meta={large ? product.collection : product.fit}
       title={product.name}
       footer={large ? product.badge : product.subtitle}
+      image={product.storefrontImage}
       large={large}
       className={className}
     />
