@@ -46,6 +46,15 @@ export default async function AccountPage() {
       .map((account) => providerLabels[account.provider] ?? account.provider)
       .filter((value, index, values) => values.indexOf(value) === index),
   ];
+  const recentOrders = await prisma.order.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 3,
+  });
 
   return (
     <main className="page-shell flex flex-col gap-14 pb-20 pt-8 md:gap-16 md:pb-24 md:pt-10">
@@ -65,12 +74,18 @@ export default async function AccountPage() {
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
+              href="/account/orders"
+              className="button-primary inline-flex items-center justify-center px-5 py-3.5"
+            >
+              View orders
+            </Link>
+            <Link
               href="/store"
               className="button-secondary inline-flex items-center justify-center px-5 py-3.5"
             >
               Continue shopping
             </Link>
-            <SignOutButton className="button-primary inline-flex items-center justify-center px-5 py-3.5" />
+            <SignOutButton className="button-secondary inline-flex items-center justify-center px-5 py-3.5" />
           </div>
         </div>
       </Reveal>
@@ -110,16 +125,62 @@ export default async function AccountPage() {
             </div>
 
             <div className="info-rows">
-              {linkedMethods.map((method) => (
-                <div key={method} className="info-row">
-                  <span>{method}</span>
-                  <span className="text-white/34">Active</span>
+              {linkedMethods.length > 0 ? (
+                linkedMethods.map((method) => (
+                  <div key={method} className="info-row">
+                    <span>{method}</span>
+                    <span className="text-white/34">Active</span>
+                  </div>
+                ))
+              ) : (
+                <div className="info-row">
+                  <span>No linked method</span>
+                  <span className="text-white/34">Check sign-in</span>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </Reveal>
       </section>
+
+      <Reveal as="section" className="section-panel p-6 md:p-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div className="space-y-3">
+            <p className="eyebrow">Recent orders</p>
+            <h2 className="font-display text-4xl text-white">
+              Order history.
+            </h2>
+            <p className="section-copy max-w-xl">
+              Signed-in purchases appear here after payment verification.
+            </p>
+          </div>
+
+          <Link
+            href="/account/orders"
+            className="button-primary inline-flex items-center justify-center px-5 py-3.5"
+          >
+            Open orders
+          </Link>
+        </div>
+
+        <div className="mt-8 grid gap-4">
+          {recentOrders.length > 0 ? (
+            recentOrders.map((order) => (
+              <div key={order.id} className="info-row">
+                <span>{order.code}</span>
+                <span className="text-right">
+                  {order.totalLabel} / {order.status}
+                </span>
+              </div>
+            ))
+          ) : (
+            <div className="info-row">
+              <span>No orders yet</span>
+              <span className="text-right text-white/34">Start with the store</span>
+            </div>
+          )}
+        </div>
+      </Reveal>
     </main>
   );
 }

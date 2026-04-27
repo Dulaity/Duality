@@ -30,7 +30,9 @@ export const metadata: Metadata = {
   },
   description:
     "Duality sells meme shirts, sports merch, anime merch, and unwearable jokes in a bright online store.",
-  metadataBase: new URL("https://duality.local"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://dualitystore.store",
+  ),
   keywords: [
     "Duality",
     "meme shirts",

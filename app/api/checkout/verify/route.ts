@@ -7,6 +7,7 @@ import {
   isOrderAmountValid,
 } from "@/lib/commerce";
 import { buildOrderPreview } from "@/lib/orders";
+import { upsertCommerceOrder } from "@/lib/order-store";
 import {
   fetchRazorpayOrder,
   fetchRazorpayPayment,
@@ -100,6 +101,17 @@ export async function POST(request: Request) {
       payment.status === "captured" || order.status === "paid"
         ? "captured"
         : "processing";
+
+    await upsertCommerceOrder({
+      order: trustedOrder,
+      customer: notes.customer,
+      userId: notes.userId,
+      razorpayOrderId: order.id,
+      razorpayPaymentId: payment.id,
+      status,
+      fulfillmentStatus:
+        status === "captured" ? "awaiting-webhook" : "payment-processing",
+    });
 
     return NextResponse.json(
       {

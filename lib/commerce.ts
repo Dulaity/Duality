@@ -97,6 +97,7 @@ export function decodeCartToken(token: string): CartItemInput[] {
 const checkoutNotesSchema = z.object({
   order_code: z.string().min(1),
   cart_token: z.string().min(1),
+  user_id: z.string().optional().default(""),
   customer_name: z.string().min(1),
   customer_email: z.string().email(),
   customer_phone: z.string().min(1),
@@ -113,6 +114,7 @@ export function extractCheckoutNotes(notes: Record<string, unknown>) {
   return {
     orderCode: parsed.order_code,
     cartToken: parsed.cart_token,
+    userId: parsed.user_id || null,
     customer: {
       name: parsed.customer_name,
       email: parsed.customer_email,
@@ -129,6 +131,9 @@ export function extractCheckoutNotes(notes: Record<string, unknown>) {
 export function createCheckoutOrderPayload(
   items: CartItemInput[],
   customer: CheckoutCustomerInput,
+  options: {
+    userId?: string | null;
+  } = {},
 ) {
   const order = buildOrderPreview(items);
   const cartToken = encodeCartToken(
@@ -148,6 +153,7 @@ export function createCheckoutOrderPayload(
       notes: {
         order_code: order.code,
         cart_token: cartToken,
+        user_id: options.userId ?? "",
         customer_name: customer.name,
         customer_email: customer.email,
         customer_phone: customer.phone,

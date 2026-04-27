@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
 
 import {
   checkoutRequestSchema,
   createCheckoutOrderPayload,
   isManualFulfillmentAllowed,
 } from "@/lib/commerce";
+import { authOptions } from "@/lib/auth";
 import { isPrintfulConfigured } from "@/lib/printful";
 import {
   createRazorpayOrder,
@@ -39,9 +41,13 @@ export async function POST(request: Request) {
   }
 
   try {
+    const session = await getServerSession(authOptions);
     const { order, gatewayOrder } = createCheckoutOrderPayload(
       parsed.data.items,
       parsed.data.customer,
+      {
+        userId: session?.user?.id,
+      },
     );
     const paymentReady = isRazorpayConfigured();
     const fulfillmentReady =

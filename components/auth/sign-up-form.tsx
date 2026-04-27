@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useState, useTransition } from "react";
 
-import { DualityStage } from "@/components/duality-stage";
 import { Reveal } from "@/components/reveal";
 
 type SocialProvider = {
@@ -73,9 +72,9 @@ export function SignUpForm({
   }
 
   return (
-    <main className="page-shell py-10 md:py-14">
-      <div className="grid gap-10 xl:grid-cols-[0.92fr_1.08fr] xl:items-center">
-        <Reveal className="space-y-6">
+    <main className="page-shell py-8 md:py-14">
+      <div className="auth-layout">
+        <Reveal className="auth-intro-panel order-2 space-y-6 xl:order-1">
           <p className="eyebrow">Create account</p>
           <h1 className="section-title max-w-lg text-white">
             Open your customer account.
@@ -83,19 +82,24 @@ export function SignUpForm({
           <p className="section-copy max-w-md">
             Save your sign-in, move faster through checkout, and keep your account ready for future releases.
           </p>
-          <DualityStage
-            label="Customer"
-            meta="Duality"
-            title="Join Us"
-            footer="Email and password, Google, or Microsoft."
-            className="max-w-2xl"
-          />
+          <div className="auth-note-grid">
+            <span>Fast checkout</span>
+            <span>Recent order history</span>
+            <span>Google and Microsoft ready</span>
+          </div>
         </Reveal>
 
-        <Reveal className="section-panel p-6 md:p-8" delay={90}>
+        <Reveal className="auth-card section-panel order-1 p-6 md:p-8 xl:order-2" delay={90}>
           <div className="space-y-6">
+            <div className="space-y-2">
+              <p className="eyebrow">New customer</p>
+              <h2 className="font-display text-4xl text-white">
+                Create account.
+              </h2>
+            </div>
+
             {socialProviders.length > 0 ? (
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="auth-social-grid">
                 {socialProviders.map((provider) => (
                   <button
                     key={provider.id}
@@ -103,16 +107,16 @@ export function SignUpForm({
                     onClick={() => void signIn(provider.id, { callbackUrl })}
                     className="button-secondary inline-flex items-center justify-center px-5 py-3.5"
                   >
-                    {provider.name}
+                    Continue with {provider.name}
                   </button>
                 ))}
               </div>
             ) : null}
 
-            <div className="flex items-center gap-4 text-xs uppercase tracking-[0.24em] text-white/22">
-              <span className="h-px flex-1 bg-white/8" />
+            <div className="form-divider">
+              <span />
               <span>Email</span>
-              <span className="h-px flex-1 bg-white/8" />
+              <span />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">

@@ -7,6 +7,10 @@ import {
   isOrderAmountValid,
 } from "@/lib/commerce";
 import { buildOrderPreview } from "@/lib/orders";
+import {
+  updateOrderFulfillmentStatus,
+  upsertCommerceOrder,
+} from "@/lib/order-store";
 import { createPrintfulOrder, isPrintfulConfigured } from "@/lib/printful";
 import {
   fetchRazorpayOrder,
@@ -66,6 +70,20 @@ export async function POST(request: Request) {
     }
 
     if (!isPrintfulConfigured()) {
+      const fulfillmentStatus = isManualFulfillmentAllowed()
+        ? "manual-review"
+        : "skipped";
+
+      await upsertCommerceOrder({
+        order: trustedOrder,
+        customer: notes.customer,
+        userId: notes.userId,
+        razorpayOrderId: order.id,
+        razorpayPaymentId: payment.id,
+        status: "captured",
+        fulfillmentStatus,
+      });
+
       return NextResponse.json({
         received: true,
         fulfillment: isManualFulfillmentAllowed()
@@ -79,6 +97,16 @@ export async function POST(request: Request) {
             },
       });
     }
+
+    await upsertCommerceOrder({
+      order: trustedOrder,
+      customer: notes.customer,
+      userId: notes.userId,
+      razorpayOrderId: order.id,
+      razorpayPaymentId: payment.id,
+      status: "captured",
+      fulfillmentStatus: "submitting",
+    });
 
     const fulfillment = await createPrintfulOrder({
       orderCode: trustedOrder.code,
@@ -99,6 +127,8 @@ export async function POST(request: Request) {
         zip: notes.customer.postalCode,
       },
     });
+
+    await updateOrderFulfillmentStatus(trustedOrder.code, fulfillment.status);
 
     return NextResponse.json({
       received: true,

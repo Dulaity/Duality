@@ -16,7 +16,7 @@ const navigation = [
 
 function isActivePath(currentPath: string, href: string) {
   if (href.startsWith("/#")) {
-    return currentPath === "/";
+    return false;
   }
 
   return currentPath.startsWith(href);
@@ -62,9 +62,15 @@ export function SiteHeader() {
                 <div className="header-action-group hidden md:flex">
                   <Link
                     href="/account"
-                    className="header-action-link header-action-link-active"
+                    className={`header-action-link ${pathname === "/account" ? "header-action-link-active" : ""}`}
                   >
                     Account
+                  </Link>
+                  <Link
+                    href="/account/orders"
+                    className={`header-action-link ${pathname.startsWith("/account/orders") ? "header-action-link-active" : ""}`}
+                  >
+                    Orders
                   </Link>
                   <SignOutButton className="header-action-link" />
                 </div>
@@ -116,6 +122,14 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+            {isAuthenticated ? (
+              <Link
+                href="/account/orders"
+                className={`nav-link whitespace-nowrap ${pathname.startsWith("/account/orders") ? "nav-link-active" : ""}`}
+              >
+                Orders
+              </Link>
+            ) : null}
           </div>
         </nav>
       </div>

@@ -44,3 +44,5 @@ next-env.d.ts
 /prisma/generated/prisma
 dev.db*
 .next-dev.log
+.audit-shots*/
+test-results/

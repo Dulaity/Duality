@@ -54,6 +54,12 @@ export function CheckoutSuccess({
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
+              href="/account/orders"
+              className="button-secondary inline-flex items-center gap-2 px-5 py-3.5"
+            >
+              View orders
+            </Link>
+            <Link
               href="/"
               className="button-secondary inline-flex items-center gap-2 px-5 py-3.5"
             >
