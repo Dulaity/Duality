@@ -7,6 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -14,11 +19,48 @@ model User {
   emailVerified DateTime?
   image         String?
   passwordHash  String?
+  role          UserRole  @default(CUSTOMER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
   orders        Order[]
+
+  @@index([role])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  sku         String   @unique
+  slug        String   @unique
+  name        String
+  subtitle    String
+  price       Int
+  collection  String
+  category    String
+  fit         String
+  badge       String
+  description String
+  story       String
+  vibe        String
+  materials   String
+  leadTime    String
+  sizes       String[]
+  highlights  String[]
+  paletteBase String
+  paletteShell String
+  paletteAccent String
+  paletteGlow String
+  paletteText String
+  inventory   Int      @default(0)
+  active      Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, featured])
+  @@index([collection])
+  @@index([inventory])
 }
 
 model Account {

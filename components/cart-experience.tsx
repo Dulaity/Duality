@@ -10,8 +10,8 @@ import { useSession } from "next-auth/react";
 import { Reveal } from "@/components/reveal";
 import { useCart } from "@/components/cart-provider";
 import { MAX_ORDER_QUANTITY } from "@/lib/limits";
-import { buildOrderPreview } from "@/lib/orders";
-import { formatPrice, getProductBySlug } from "@/lib/products";
+import { buildOrderPreviewFromCatalog, type OrderPreview } from "@/lib/orders";
+import { formatPrice, type Product } from "@/lib/products";
 
 type CheckoutCustomer = {
   name: string;
@@ -30,7 +30,6 @@ type CheckoutResult = {
 };
 
 type CartItem = ReturnType<typeof useCart>["items"][number];
-type OrderPreview = ReturnType<typeof buildOrderPreview>;
 
 type RazorpaySuccessPayload = {
   razorpay_order_id: string;
@@ -427,7 +426,7 @@ function CartCheckoutPanel({
   );
 }
 
-export function CartExperience() {
+export function CartExperience({ products }: { products: Product[] }) {
   const { data: session } = useSession();
   const { items, hydrated, removeItem, updateQuantity, clearCart, cartCount } =
     useCart();
@@ -435,7 +434,9 @@ export function CartExperience() {
 
   const enrichedItems = items
     .map((item) => {
-      const product = getProductBySlug(item.slug);
+      const product = products.find(
+        (catalogProduct) => catalogProduct.slug === item.slug,
+      );
 
       if (!product) {
         return null;
@@ -455,7 +456,12 @@ export function CartExperience() {
     size,
   }));
 
-  const preview = previewItems.length > 0 ? buildOrderPreview(previewItems) : null;
+  const preview =
+    previewItems.length > 0
+      ? buildOrderPreviewFromCatalog(previewItems, products, undefined, {
+          allowDefaultFallback: false,
+        })
+      : null;
 
   if (!hydrated) {
     return (

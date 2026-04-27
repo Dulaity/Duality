@@ -1,5 +1,10 @@
 import { MAX_ORDER_QUANTITY } from "@/lib/limits";
-import { formatPrice, getProductBySlug } from "@/lib/products";
+import {
+  formatPrice,
+  getProductBySlug,
+  products,
+  type Product,
+} from "@/lib/products";
 
 export type CartItemInput = {
   slug: string;
@@ -17,7 +22,9 @@ export type OrderPreview = {
   totalLabel: string;
   items: Array<
     CartItemInput & {
+      sku: string;
       name: string;
+      price: number;
       lineTotal: number;
       lineTotalLabel: string;
     }
@@ -35,8 +42,23 @@ export function buildOrderPreview(
   items: CartItemInput[],
   code = generateOrderCode(),
 ): OrderPreview {
+  return buildOrderPreviewFromCatalog(items, products, code);
+}
+
+export function buildOrderPreviewFromCatalog(
+  items: CartItemInput[],
+  catalog: Product[],
+  code = generateOrderCode(),
+  options: {
+    allowDefaultFallback?: boolean;
+  } = {},
+): OrderPreview {
   const normalizedItems = items.map((item) => {
-    const product = getProductBySlug(item.slug);
+    const product =
+      catalog.find((catalogProduct) => catalogProduct.slug === item.slug) ??
+      (options.allowDefaultFallback === false
+        ? undefined
+        : getProductBySlug(item.slug));
 
     if (!product) {
       throw new Error(`Unknown product: ${item.slug}`);
@@ -46,13 +68,18 @@ export function buildOrderPreview(
       throw new Error(`Invalid size selected for ${product.name}`);
     }
 
-    const quantity = Math.max(1, Math.min(MAX_ORDER_QUANTITY, Math.trunc(item.quantity)));
+    const quantity = Math.max(
+      1,
+      Math.min(MAX_ORDER_QUANTITY, Math.trunc(item.quantity)),
+    );
     const lineTotal = product.price * quantity;
 
     return {
       ...item,
+      sku: product.sku,
       quantity,
       name: product.name,
+      price: product.price,
       lineTotal,
       lineTotalLabel: formatPrice(lineTotal),
     };

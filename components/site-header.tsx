@@ -25,9 +25,11 @@ function isActivePath(currentPath: string, href: string) {
 
 function AccountMenu({
   isAuthenticated,
+  isAdmin,
   pathname,
 }: {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   pathname: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -95,6 +97,16 @@ function AccountMenu({
               >
                 Orders
               </Link>
+              {isAdmin ? (
+                <Link
+                  href="/admin"
+                  className={`account-menu-item ${pathname.startsWith("/admin") ? "account-menu-item-active" : ""}`}
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                >
+                  Admin
+                </Link>
+              ) : null}
               <SignOutButton className="account-menu-item account-menu-danger" />
             </>
           ) : (
@@ -128,6 +140,7 @@ export function SiteHeader() {
   const { cartCount, hydrated } = useCart();
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated" && Boolean(session?.user);
+  const isAdmin = session?.user?.role === "ADMIN";
 
   return (
     <header className="site-header-shell">
@@ -162,6 +175,7 @@ export function SiteHeader() {
               <AccountMenu
                 key={pathname}
                 isAuthenticated={isAuthenticated}
+                isAdmin={isAdmin}
                 pathname={pathname}
               />
             )}

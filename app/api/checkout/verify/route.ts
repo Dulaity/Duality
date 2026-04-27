@@ -6,8 +6,9 @@ import {
   extractCheckoutNotes,
   isOrderAmountValid,
 } from "@/lib/commerce";
-import { buildOrderPreview } from "@/lib/orders";
+import { buildOrderPreviewFromCatalog } from "@/lib/orders";
 import { upsertCommerceOrder } from "@/lib/order-store";
+import { getStoreProductsBySlugs } from "@/lib/product-store";
 import {
   fetchRazorpayOrder,
   fetchRazorpayPayment,
@@ -84,8 +85,16 @@ export async function POST(request: Request) {
     }
 
     const notes = extractCheckoutNotes(order.notes);
-    const items = decodeCartToken(notes.cartToken);
-    const trustedOrder = buildOrderPreview(items, notes.orderCode);
+    const items = await decodeCartToken(notes.cartToken);
+    const products = await getStoreProductsBySlugs(items.map((item) => item.slug));
+    const trustedOrder = buildOrderPreviewFromCatalog(
+      items,
+      products,
+      notes.orderCode,
+      {
+        allowDefaultFallback: false,
+      },
+    );
 
     if (
       !isOrderAmountValid(order.amount, trustedOrder.total) ||

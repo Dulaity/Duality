@@ -5,7 +5,7 @@ import { useDeferredValue, useState } from "react";
 
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
-import { collections, fits, products } from "@/lib/products";
+import { shirtCategories, type Product } from "@/lib/products";
 
 const sortOptions = [
   { label: "Featured", value: "featured" },
@@ -13,12 +13,17 @@ const sortOptions = [
   { label: "Price: High to Low", value: "price-desc" },
 ];
 
-export function StoreExperience() {
+export function StoreExperience({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
   const [collection, setCollection] = useState("All");
   const [fit, setFit] = useState("All");
   const [sort, setSort] = useState("featured");
   const deferredQuery = useDeferredValue(query);
+  const collections = ["All", ...shirtCategories];
+  const fits = [
+    "All",
+    ...Array.from(new Set(products.map((product) => product.fit))),
+  ];
 
   const visibleProducts = [...products]
     .filter((product) => {

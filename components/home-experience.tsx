@@ -7,9 +7,13 @@ import { CustomDropForm } from "@/components/custom-drop-form";
 import { ProductCard } from "@/components/product-card";
 import { DualityStage } from "@/components/duality-stage";
 import { Reveal } from "@/components/reveal";
-import { featuredProducts } from "@/lib/products";
+import type { Product } from "@/lib/products";
 
-export function HomeExperience() {
+export function HomeExperience({
+  featuredProducts,
+}: {
+  featuredProducts: Product[];
+}) {
   return (
     <main className="page-shell flex flex-col gap-20 pb-20 pt-8 md:gap-28 md:pb-24 md:pt-10">
       <Reveal as="section" className="hero-grid pt-2 md:pt-6">

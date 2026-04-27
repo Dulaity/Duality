@@ -26,9 +26,17 @@ export type Product = {
     glow: string;
     text: string;
   };
+  inventory: number;
+  active: boolean;
+  featured: boolean;
+  soldOut: boolean;
 };
 
-export const products: Product[] = [
+type ProductSeed = Omit<Product, "active" | "featured" | "inventory" | "soldOut">;
+
+export const defaultInventory = 24;
+
+const productSeeds: ProductSeed[] = [
   {
     sku: "SB",
     slug: "social-battery-critical",
@@ -193,7 +201,15 @@ export const products: Product[] = [
   },
 ];
 
-export const featuredProducts = products.slice(0, 4);
+export const products: Product[] = productSeeds.map((product, index) => ({
+  ...product,
+  inventory: defaultInventory,
+  active: true,
+  featured: index < 4,
+  soldOut: false,
+}));
+
+export const featuredProducts = products.filter((product) => product.featured).slice(0, 4);
 
 export const collections = ["All", ...shirtCategories];
 export const fits = ["All", ...new Set(products.map((product) => product.fit))];

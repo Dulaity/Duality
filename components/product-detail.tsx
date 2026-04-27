@@ -21,7 +21,7 @@ export function ProductDetail({
   const { addItem, cartCount } = useCart();
   const [size, setSize] = useState(product.sizes[1] ?? product.sizes[0]);
   const [added, setAdded] = useState(false);
-  const canAdd = cartCount < MAX_ORDER_QUANTITY;
+  const canAdd = cartCount < MAX_ORDER_QUANTITY && !product.soldOut;
 
   function handleAdd() {
     if (!canAdd) {
@@ -97,6 +97,12 @@ export function ProductDetail({
               <span className="max-w-[20rem] text-right">{product.leadTime}</span>
             </div>
             <div className="info-row">
+              <span className="text-white/34">Stock</span>
+              <span className="max-w-[20rem] text-right">
+                {product.soldOut ? "Sold out" : "Available"}
+              </span>
+            </div>
+            <div className="info-row">
               <span className="text-white/34">Vibe</span>
               <span className="max-w-[20rem] text-right">{product.vibe}</span>
             </div>
@@ -127,7 +133,13 @@ export function ProductDetail({
                 className="button-primary inline-flex flex-1 items-center justify-center gap-2 px-5 py-3.5 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 <ShoppingBag className="h-4 w-4" />
-                {added ? "Added" : canAdd ? "Add to cart" : "Cart full"}
+                {product.soldOut
+                  ? "Sold out"
+                  : added
+                    ? "Added"
+                    : canAdd
+                      ? "Add to cart"
+                      : "Cart full"}
               </button>
 
               <Link

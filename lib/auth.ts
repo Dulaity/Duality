@@ -56,6 +56,7 @@ const providers = [
         name: user.name,
         email: user.email,
         image: user.image,
+        role: user.role,
       };
     },
   }),
@@ -90,6 +91,22 @@ export const authOptions: NextAuthOptions = {
     error: "/signin",
   },
   callbacks: {
+    async jwt({ token }) {
+      if (token.sub) {
+        const user = await prisma.user.findUnique({
+          where: {
+            id: token.sub,
+          },
+          select: {
+            role: true,
+          },
+        });
+
+        token.role = user?.role ?? "CUSTOMER";
+      }
+
+      return token;
+    },
     async signIn({ account, profile }) {
       if (account?.provider === "google") {
         const emailVerified =
@@ -106,6 +123,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
+        session.user.role = token.role ?? "CUSTOMER";
       }
 
       return session;

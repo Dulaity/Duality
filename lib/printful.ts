@@ -3,7 +3,6 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 
 import type { CartItemInput } from "@/lib/orders";
-import { getProductBySlug } from "@/lib/products";
 
 const variantMapSchema = z.record(
   z.string(),
@@ -76,7 +75,7 @@ export async function createPrintfulOrder({
   orderCode,
 }: {
   recipient: PrintfulRecipient;
-  items: CartItemInput[];
+  items: Array<CartItemInput & { sku: string; price: number }>;
   orderCode: string;
 }) {
   if (!process.env.PRINTFUL_API_TOKEN) {
@@ -96,25 +95,19 @@ export async function createPrintfulOrder({
   }
 
   const orderItems = items.map((item) => {
-    const product = getProductBySlug(item.slug);
-
-    if (!product) {
-      throw new Error(`Unknown product in fulfillment payload: ${item.slug}`);
-    }
-
-    const variantId = variantMap[`${product.sku}:${item.size}`];
+    const variantId = variantMap[`${item.sku}:${item.size}`];
 
     if (!variantId) {
       throw new Error(
-        `Missing Printful variant mapping for ${product.sku}:${item.size}.`,
+        `Missing Printful variant mapping for ${item.sku}:${item.size}.`,
       );
     }
 
     return {
       sync_variant_id: variantId,
       quantity: item.quantity,
-      retail_price: product.price.toFixed(2),
-      external_id: `${orderCode}-${product.sku}-${item.size}`,
+      retail_price: item.price.toFixed(2),
+      external_id: `${orderCode}-${item.sku}-${item.size}`,
     };
   });
 

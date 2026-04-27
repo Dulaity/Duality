@@ -1,8 +1,11 @@
 import { z } from "zod";
 
 import { MAX_ORDER_QUANTITY } from "@/lib/limits";
-import { buildOrderPreview, type CartItemInput } from "@/lib/orders";
-import { getProductBySku, getProductBySlug } from "@/lib/products";
+import {
+  buildOrderPreviewFromCatalog,
+  type CartItemInput,
+} from "@/lib/orders";
+import { getStoreProductBySku, getStoreProductsBySlugs } from "@/lib/product-store";
 
 export const cartItemSchema = z.object({
   slug: z.string().min(1).max(120),
@@ -51,27 +54,23 @@ export function toGatewayAmount(amount: number) {
   return amount * 100;
 }
 
-export function encodeCartToken(items: CartItemInput[]) {
+export function encodeCartToken(
+  items: Array<CartItemInput & { sku: string }>,
+) {
   return items
     .map((item) => {
-      const product = getProductBySlug(item.slug);
-
-      if (!product) {
-        throw new Error(`Unknown product: ${item.slug}`);
-      }
-
-      return `${product.sku}:${item.size}:${item.quantity}`;
+      return `${item.sku}:${item.size}:${item.quantity}`;
     })
     .join("|");
 }
 
-export function decodeCartToken(token: string): CartItemInput[] {
+export async function decodeCartToken(token: string): Promise<CartItemInput[]> {
   const decodedItems = token
     .split("|")
     .filter(Boolean)
-    .map((part) => {
+    .map(async (part) => {
       const [sku, size, quantityValue] = part.split(":");
-      const product = getProductBySku(sku ?? "");
+      const product = await getStoreProductBySku(sku ?? "");
       const quantity = Number.parseInt(quantityValue ?? "", 10);
 
       if (!product || !size || !Number.isInteger(quantity)) {
@@ -89,9 +88,11 @@ export function decodeCartToken(token: string): CartItemInput[] {
       };
     });
 
-  checkoutRequestSchema.pick({ items: true }).parse({ items: decodedItems });
+  const resolvedItems = await Promise.all(decodedItems);
 
-  return decodedItems;
+  checkoutRequestSchema.pick({ items: true }).parse({ items: resolvedItems });
+
+  return resolvedItems;
 }
 
 const checkoutNotesSchema = z.object({
@@ -128,21 +129,18 @@ export function extractCheckoutNotes(notes: Record<string, unknown>) {
   };
 }
 
-export function createCheckoutOrderPayload(
+export async function createCheckoutOrderPayload(
   items: CartItemInput[],
   customer: CheckoutCustomerInput,
   options: {
     userId?: string | null;
   } = {},
 ) {
-  const order = buildOrderPreview(items);
-  const cartToken = encodeCartToken(
-    order.items.map(({ slug, quantity, size }) => ({
-      slug,
-      quantity,
-      size,
-    })),
-  );
+  const products = await getStoreProductsBySlugs(items.map((item) => item.slug));
+  const order = buildOrderPreviewFromCatalog(items, products, undefined, {
+    allowDefaultFallback: false,
+  });
+  const cartToken = encodeCartToken(order.items);
 
   return {
     order,

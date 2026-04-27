@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
   try {
     const session = await getServerSession(authOptions);
-    const { order, gatewayOrder } = createCheckoutOrderPayload(
+    const { order, gatewayOrder } = await createCheckoutOrderPayload(
       parsed.data.items,
       parsed.data.customer,
       {

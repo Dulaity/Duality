@@ -5,7 +5,9 @@
   "scripts": {
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx scripts/seed-products.ts",
     "db:setup": "prisma migrate deploy && prisma generate",
+    "admin:create": "tsx scripts/create-admin.ts",
     "db:studio": "prisma studio",
     "dev": "next dev",
     "build": "prisma generate && next build",
@@ -36,6 +38,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

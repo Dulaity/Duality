@@ -19,7 +19,7 @@ export function ProductCard({
   const { addItem, cartCount } = useCart();
   const [size, setSize] = useState(product.sizes[1] ?? product.sizes[0]);
   const [added, setAdded] = useState(false);
-  const canAdd = cartCount < MAX_ORDER_QUANTITY;
+  const canAdd = cartCount < MAX_ORDER_QUANTITY && !product.soldOut;
 
   function handleAddToCart() {
     if (!canAdd) {
@@ -61,7 +61,7 @@ export function ProductCard({
         <div className="space-y-1 md:text-right">
           <p className="text-3xl font-semibold text-white">{formatPrice(product.price)}</p>
           <p className="text-xs uppercase tracking-[0.22em] text-white/32">
-            {product.fit}
+            {product.soldOut ? "Sold out" : product.fit}
           </p>
         </div>
       </div>
@@ -87,7 +87,13 @@ export function ProductCard({
           className="button-primary inline-flex flex-1 items-center justify-center gap-2 px-5 py-3.5 disabled:cursor-not-allowed disabled:opacity-70"
         >
           <ShoppingBag className="h-4 w-4" />
-          {added ? "Added" : canAdd ? "Add to cart" : "Cart full"}
+          {product.soldOut
+            ? "Sold out"
+            : added
+              ? "Added"
+              : canAdd
+                ? "Add to cart"
+                : "Cart full"}
         </button>
 
         <Link

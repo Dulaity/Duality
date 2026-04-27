@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 import { StoreExperience } from "@/components/store-experience";
+import { getStoreProducts } from "@/lib/product-store";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -8,6 +10,10 @@ export const metadata: Metadata = {
     "Browse Duality meme shirts, sports merch, anime merch, and unwearable joke tees.",
 };
 
-export default function StorePage() {
-  return <StoreExperience />;
+export default async function StorePage() {
+  await connection();
+
+  const products = await getStoreProducts();
+
+  return <StoreExperience products={products} />;
 }
