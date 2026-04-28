@@ -35,7 +35,7 @@ export function HomeExperience({
               href="/store"
               className="button-primary inline-flex items-center justify-center gap-2 px-6 py-3.5"
             >
-              I need this
+              Shop shirts
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link

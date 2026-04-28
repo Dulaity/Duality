@@ -92,7 +92,7 @@ export function ProductCard({
             : added
               ? "Added"
               : canAdd
-                ? "Mentally adding to cart"
+                ? "Add to cart"
                 : "Cart full"}
         </button>
 
@@ -100,7 +100,7 @@ export function ProductCard({
           href={`/store/${product.slug}`}
           className="button-secondary inline-flex items-center justify-center gap-2 px-5 py-3.5"
         >
-          This is so me
+          View piece
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

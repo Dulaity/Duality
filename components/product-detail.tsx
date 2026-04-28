@@ -149,7 +149,7 @@ export function ProductDetail({
                   : added
                     ? "Added"
                     : canAdd
-                      ? "Mentally adding to cart"
+                      ? "Add to cart"
                       : "Cart full"}
               </button>
 
