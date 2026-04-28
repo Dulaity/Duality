@@ -42,7 +42,8 @@ export type Product = {
 type ProductSeed = Omit<
   Product,
   "active" | "featured" | "inventory" | "soldOut" | "storefrontImage" | "catalogImages"
->;
+> &
+  Partial<Pick<Product, "storefrontImage" | "catalogImages">>;
 
 export const defaultInventory = 24;
 
@@ -213,21 +214,21 @@ const productSeeds: ProductSeed[] = [
     sku: "OD",
     slug: "opposite-day-uniform",
     name: "Opposite Day Uniform",
-    subtitle: "Contrasting tee for mixed signals",
+    subtitle: "Contrasting tee for pants energy",
     price: 1099,
     collection: "Contrasting T-Shirt Designs",
     category: "Graphic Tee",
     fit: "Oversized",
-    badge: "Two moods",
+    badge: "Pants on top",
     description:
-      "A split-personality tee for people who can disagree with themselves and still make it look intentional.",
+      "A white tee printed with jeans because apparently clothing has side quests now.",
     story:
-      "Built around clashing panels, opposite moods, and a graphic layout that turns indecision into the entire point.",
-    vibe: "Clean from far away, questionable up close, exactly on brand.",
+      "Looks normal for half a second, then the jeans load in and the entire outfit becomes a visual bug.",
+    vibe: "Deadpan, stupid, and weirdly clean.",
     materials: "230 GSM soft cotton",
     leadTime: "Dispatches in 72 hours",
     sizes: ["S", "M", "L", "XL"],
-    highlights: ["Split-front graphic", "Oversized contrast fit", "Soft ribbed collar"],
+    highlights: ["Denim front graphic", "Oversized white tee", "Soft ribbed collar"],
     palette: {
       base: "#ffffff",
       shell: "#111111",
@@ -235,6 +236,8 @@ const productSeeds: ProductSeed[] = [
       glow: "#ff5f7a",
       text: "#17120a",
     },
+    storefrontImage: "/images/products/opposite-day-uniform-shirt.png",
+    catalogImages: ["/images/products/opposite-day-uniform-shirt.png"],
   },
   {
     sku: "DT",
@@ -270,8 +273,8 @@ export const products: Product[] = productSeeds.map((product, index) => ({
   inventory: defaultInventory,
   active: true,
   featured: index < 4,
-  storefrontImage: null,
-  catalogImages: [],
+  storefrontImage: product.storefrontImage ?? null,
+  catalogImages: product.catalogImages ?? [],
   soldOut: false,
 }));
 

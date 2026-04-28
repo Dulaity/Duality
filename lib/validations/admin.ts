@@ -21,9 +21,10 @@ const imageDataSchema = z
       value.startsWith("data:image/jpeg;base64,") ||
       value.startsWith("data:image/png;base64,") ||
       value.startsWith("data:image/webp;base64,") ||
+      value.startsWith("/images/") ||
       value.startsWith("https://") ||
       value.startsWith("http://"),
-    "Use a PNG, JPG, WebP upload, or a valid image URL.",
+    "Use a PNG, JPG, WebP upload, repo image path, or a valid image URL.",
   )
   .refine(
     (value) => value.length <= 700_000,

@@ -852,7 +852,12 @@ section[id] {
 }
 
 .stage-panel-with-image {
-  background: #ffffff;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 217, 61, 0.7), transparent 19%),
+    radial-gradient(circle at 83% 20%, rgba(255, 95, 122, 0.2), transparent 16%),
+    linear-gradient(135deg, rgba(255, 217, 61, 0.48) 0 25%, transparent 25% 50%, rgba(255, 217, 61, 0.3) 50% 75%, transparent 75%),
+    #ffffff;
+  background-size: auto, auto, 42px 42px, auto;
 }
 
 .stage-panel-with-image::before,
@@ -862,17 +867,17 @@ section[id] {
 
 .stage-image {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.02);
+  inset: 1.25rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: saturate(1.04) contrast(1.02) drop-shadow(0 24px 26px rgba(23, 18, 10, 0.18));
 }
 
 .stage-panel-with-image .stage-copy {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.7), transparent 42%),
-    linear-gradient(0deg, rgba(255, 244, 173, 0.86), transparent 52%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), transparent 36%),
+    linear-gradient(0deg, rgba(255, 244, 173, 0.94), transparent 48%);
   border-radius: 0.35rem;
   padding: 0.15rem;
 }
