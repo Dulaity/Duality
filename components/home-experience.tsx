@@ -21,12 +21,12 @@ export function HomeExperience({
           <div className="hero-band">
             <p className="eyebrow">Duality / Meme Lab</p>
             <h1 className="display-title text-white">
-              Wear the joke
+              Wear the
               <br />
-              anyway.
+              internet.
             </h1>
             <p className="display-copy max-w-xl">
-              Meme shirts, anime chaos, and sports merch for jokes that probably should have stayed in the group chat.
+              Unwearable memes, dark humor, and niche designs for people who get it.
             </p>
           </div>
 
@@ -35,29 +35,29 @@ export function HomeExperience({
               href="/store"
               className="button-primary inline-flex items-center justify-center gap-2 px-6 py-3.5"
             >
-              Shop shirts
+              I need this
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/#custom-drop"
               className="button-secondary inline-flex items-center justify-center px-6 py-3.5"
             >
-              Submit a joke
+              Submit a cursed idea
             </Link>
           </div>
 
           <div className="stat-strip">
-            <span>Meme shirts</span>
-            <span>Sports merch</span>
-            <span>Anime merch</span>
+            <span>Wearable internet culture</span>
+            <span>If you get it, you get it</span>
+            <span>Fashion with lore</span>
           </div>
         </div>
 
         <DualityStage
           label="New idea"
           meta="Unwearable"
-          title="Group Chat"
-          footer="Loud shirts for quiet intrusive thoughts."
+          title="Internet Lore"
+          footer="Made for people who overshare through clothing."
           large
         />
       </Reveal>
@@ -70,10 +70,10 @@ export function HomeExperience({
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
             <p className="eyebrow">Featured</p>
-            <h2 className="section-title text-white">Fresh bad decisions.</h2>
+            <h2 className="section-title text-white">Conversation starters.</h2>
           </div>
           <p className="section-copy max-w-md">
-            The current rack: meme shirts, sports jokes, and anime tees with too much personality.
+            Clothes that help internet-native people recognize each other in real life.
           </p>
         </div>
 
@@ -92,21 +92,50 @@ export function HomeExperience({
 
       <Reveal
         as="section"
+        className="grid gap-8 border-t border-white/8 pt-14 md:pt-16 xl:grid-cols-[0.7fr_1.3fr] xl:items-start"
+      >
+        <div className="space-y-3">
+          <p className="eyebrow">About Duality</p>
+          <h2 className="section-title max-w-lg text-white">
+            Wearable internet culture.
+          </h2>
+        </div>
+
+        <div className="section-panel space-y-6 p-6 md:p-8">
+          <p className="section-copy">
+            We started Duality because every clothing brand looked the same.
+          </p>
+          <p className="section-copy">
+            We wanted shirts that felt like internet culture: weird, niche,
+            ironic, and unexpectedly relatable.
+          </p>
+          <p className="section-copy">
+            Some designs are memes. Some are dark humor. Some make absolutely
+            no sense unless you&apos;ve spent too much time online.
+          </p>
+          <p className="section-copy font-semibold text-white">
+            That&apos;s the point.
+          </p>
+        </div>
+      </Reveal>
+
+      <Reveal
+        as="section"
         id="custom-drop"
         className="grid gap-10 border-t border-white/8 pt-14 xl:grid-cols-[0.76fr_1.24fr] xl:items-start"
       >
         <div className="space-y-5">
           <p className="eyebrow">Submit a joke</p>
           <h2 className="section-title max-w-lg text-white">
-            Got a shirt idea that should not exist?
+            Got a shirt idea that absolutely should not exist?
           </h2>
           <p className="section-copy max-w-md">
-            Send the joke, quantity, and context. If it works on a tee, it can become a run.
+            Send us your cursed idea. We might actually print it.
           </p>
           <div className="stat-strip">
-            <span>Custom meme runs</span>
-            <span>Team orders</span>
-            <span>Fast replies</span>
+            <span>Designed like a late-night group chat</span>
+            <span>Your humor, but embroidered</span>
+            <span>Low attention span fashion</span>
           </div>
         </div>
 

@@ -62,7 +62,7 @@ export function StoreExperience({ products }: { products: Product[] }) {
             poison.
           </h1>
           <p className="display-copy max-w-md">
-            Browse meme shirts, sports merch, and anime merch without digging through the entire rack.
+            Browse brainrot, sports trauma, and anime delusions without digging through the entire internet.
           </p>
         </div>
       </Reveal>
@@ -142,7 +142,7 @@ export function StoreExperience({ products }: { products: Product[] }) {
         className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
       >
         <p className="eyebrow">{visibleProducts.length} pieces visible</p>
-        <p className="text-sm text-white/40">Meme shirts / Sports merch / Anime merch</p>
+        <p className="text-sm text-white/40">Brainrot / Sports trauma / Anime delusions</p>
       </Reveal>
 
       {visibleProducts.length > 0 ? (

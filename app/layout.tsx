@@ -29,22 +29,22 @@ export const metadata: Metadata = {
     template: "%s | Duality",
   },
   description:
-    "Duality sells meme shirts, sports merch, anime merch, and unwearable jokes in a bright online store.",
+    "Duality makes wearable internet culture for people with unhinged humor.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://dualitystore.store",
   ),
   keywords: [
     "Duality",
-    "meme shirts",
-    "anime merch",
-    "sports merch",
+    "brainrot shirts",
+    "anime delusions",
+    "sports trauma",
     "dark humor shirts",
-    "startup showcase",
+    "wearable internet culture",
   ],
   openGraph: {
     title: "Duality",
     description:
-      "Meme shirts, sports merch, anime merch, and unwearable jokes from Duality.",
+      "Unwearable memes, dark humor, and niche designs for people who get it.",
     siteName: "Duality",
     type: "website",
   },

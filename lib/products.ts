@@ -1,4 +1,8 @@
-export const shirtCategories = ["Meme Shirts", "Sports Merch", "Anime Merch"] as const;
+export const shirtCategories = [
+  "Brainrot",
+  "Sports Trauma",
+  "Anime Delusions",
+] as const;
 
 export type ShirtCategory = (typeof shirtCategories)[number];
 
@@ -46,16 +50,16 @@ const productSeeds: ProductSeed[] = [
     sku: "SB",
     slug: "social-battery-critical",
     name: "Social Battery Critical",
-    subtitle: "Meme tee for leaving early",
+    subtitle: "Brainrot tee for leaving early",
     price: 899,
-    collection: "Meme Shirts",
+    collection: "Brainrot",
     category: "Graphic Tee",
     fit: "Oversized",
     badge: "Low battery energy",
     description:
-      "A bright oversized tee for people who attend the function and mentally leave after seven minutes.",
+      "For people whose entire personality is surviving group projects, unread messages, and events they never wanted to attend.",
     story:
-      "The print reads like a warning label, which is helpful because small talk should come with hazard signs.",
+      "Looks normal until someone reads it. Then suddenly everyone knows you are operating on 4% social battery.",
     vibe: "Awkward, loud, and useful when words feel expensive.",
     materials: "220 GSM soft cotton",
     leadTime: "Dispatches in 48 hours",
@@ -73,16 +77,16 @@ const productSeeds: ProductSeed[] = [
     sku: "ER",
     slug: "emotionally-rendering",
     name: "Emotionally Rendering",
-    subtitle: "Unwearable office-hours tee",
+    subtitle: "Dark humor tee for pretending to function",
     price: 999,
-    collection: "Meme Shirts",
+    collection: "Brainrot",
     category: "Statement Tee",
     fit: "Boxy",
     badge: "Dark mode brain",
     description:
-      "For days when your face says fine but the loading spinner has been active since breakfast.",
+      "Emotionally oversized too. A boxy tee for people whose loading screen has been active since breakfast.",
     story:
-      "A clean boxy tee with a deliberately uncomfortable joke about pretending to function.",
+      "Looks normal until someone reads it, which is exactly when the HR-safe version of your personality leaves the room.",
     vibe: "Dry, blunt, and just barely polite enough to wear outside.",
     materials: "230 GSM combed cotton",
     leadTime: "Dispatches in 72 hours",
@@ -100,16 +104,16 @@ const productSeeds: ProductSeed[] = [
     sku: "BO",
     slug: "benchwarmer-olympics",
     name: "Benchwarmer Olympics",
-    subtitle: "Sports merch for elite sitting",
+    subtitle: "Sports trauma for elite sitting",
     price: 1099,
-    collection: "Sports Merch",
+    collection: "Sports Trauma",
     category: "Fan Tee",
     fit: "Relaxed",
     badge: "Participation legend",
     description:
-      "A sports tee for the athlete who knows hydration strategy, snack timing, and exactly where the shade is.",
+      "For people whose entire personality is yelling at a screen like they are on the payroll.",
     story:
-      "Made for match days, gaming tournaments, and anyone who treats spectating like a serious discipline.",
+      "Sports trauma, but wearable. Made for match days, fake tactical analysis, and elite bench behavior.",
     vibe: "Stadium energy without pretending you trained for this.",
     materials: "Dry-touch cotton blend",
     leadTime: "Dispatches in 48 hours",
@@ -127,14 +131,14 @@ const productSeeds: ProductSeed[] = [
     sku: "FC",
     slug: "final-whistle-chaos",
     name: "Final Whistle Chaos",
-    subtitle: "Loud sports banter tee",
+    subtitle: "Match-day trauma in cotton",
     price: 1199,
-    collection: "Sports Merch",
+    collection: "Sports Trauma",
     category: "Match Tee",
     fit: "Oversized",
     badge: "Extra time approved",
     description:
-      "Built for people who shout tactical advice at screens and call it emotional investment.",
+      "Looks normal until someone reads it. Built for people who shout tactical advice at screens and call it emotional investment.",
     story:
       "The shirt keeps the scoreboard energy high even when the actual score does not cooperate.",
     vibe: "Competitive, funny, and mildly unserious.",
@@ -154,14 +158,14 @@ const productSeeds: ProductSeed[] = [
     sku: "PA",
     slug: "plot-armor-expired",
     name: "Plot Armor Expired",
-    subtitle: "Anime tee for doomed side quests",
+    subtitle: "Anime delusion for doomed side quests",
     price: 999,
-    collection: "Anime Merch",
+    collection: "Anime Delusions",
     category: "Graphic Tee",
     fit: "Oversized",
     badge: "Arc ruined",
     description:
-      "A bright anime-inspired tee for anyone who enters every situation like a side character with rent due.",
+      "Anime delusions for anyone entering every situation like a doomed side character with rent due.",
     story:
       "Designed with manga-panel energy, exaggerated warning text, and a joke that lands before the boss fight.",
     vibe: "Dramatic, self-aware, and one frame away from disaster.",
@@ -181,14 +185,14 @@ const productSeeds: ProductSeed[] = [
     sku: "FR",
     slug: "filler-episode-survivor",
     name: "Filler Episode Survivor",
-    subtitle: "Anime merch for useless arcs",
+    subtitle: "Anime delusion for useless arcs",
     price: 1099,
-    collection: "Anime Merch",
+    collection: "Anime Delusions",
     category: "Statement Tee",
     fit: "Boxy",
     badge: "Season two behavior",
     description:
-      "A boxy tee for days that technically happen but do nothing for character development.",
+      "Emotionally oversized too. A boxy tee for days that happen but add absolutely nothing to the plot.",
     story:
       "The print is playful, the fit is clean, and the joke works even if your life currently has no main quest.",
     vibe: "Goofy anime energy with just enough existential seasoning.",

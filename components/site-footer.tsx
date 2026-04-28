@@ -21,7 +21,7 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="max-w-md text-sm leading-8 text-white/46">
-              Meme shirts, sports merch, and anime merch for jokes with no indoor voice.
+              Clothes that help internet-native people recognize each other in real life.
             </p>
           </div>
 

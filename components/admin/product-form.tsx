@@ -22,21 +22,21 @@ const maxImageBytes = 500 * 1024;
 
 const productTemplates: TemplateValues[] = [
   {
-    label: "Meme Shirts",
+    label: "Brainrot",
     values: {
-      sku: "MEME-01",
-      slug: "new-meme-shirt",
+      sku: "BRAIN-01",
+      slug: "new-brainrot-shirt",
       name: "Group Chat Artifact",
-      subtitle: "Meme tee for unserious people",
+      subtitle: "Brainrot tee for unserious people",
       price: 999,
-      collection: "Meme Shirts",
+      collection: "Brainrot",
       category: "Graphic Tee",
       fit: "Oversized",
       badge: "Fresh meme energy",
       description:
         "A loud tee built around one clean joke, made for the kind of people who screenshot chaos for later.",
       story:
-        "Use this template for everyday meme shirts with a simple front hit, bigger back graphic, and a joke that reads instantly.",
+        "Use this template for everyday brainrot with a simple front hit, bigger back graphic, and a joke that reads instantly.",
       vibe: "Goofy, shareable, and slightly unhinged.",
       materials: "220 GSM soft cotton",
       leadTime: "Dispatches in 48 hours",
@@ -53,14 +53,14 @@ const productTemplates: TemplateValues[] = [
     },
   },
   {
-    label: "Sports Merch",
+    label: "Sports Trauma",
     values: {
       sku: "SPORT-01",
-      slug: "new-sports-merch",
+      slug: "new-sports-trauma",
       name: "Sideline Menace",
-      subtitle: "Sports tee for loud match days",
+      subtitle: "Sports trauma for loud match days",
       price: 1099,
-      collection: "Sports Merch",
+      collection: "Sports Trauma",
       category: "Fan Tee",
       fit: "Relaxed",
       badge: "Match-day approved",
@@ -84,14 +84,14 @@ const productTemplates: TemplateValues[] = [
     },
   },
   {
-    label: "Anime Merch",
+    label: "Anime Delusions",
     values: {
       sku: "ANIME-01",
-      slug: "new-anime-merch",
+      slug: "new-anime-delusion",
       name: "Side Quest Disaster",
-      subtitle: "Anime tee for dramatic arcs",
+      subtitle: "Anime delusion for dramatic arcs",
       price: 1099,
-      collection: "Anime Merch",
+      collection: "Anime Delusions",
       category: "Graphic Tee",
       fit: "Boxy",
       badge: "Arc ruined",
@@ -386,7 +386,7 @@ export function ProductForm({ product }: { product?: AdminProduct }) {
           <select
             name="collection"
             className="field"
-            defaultValue={product?.collection ?? "Meme Shirts"}
+            defaultValue={product?.collection ?? "Brainrot"}
           >
             {shirtCategories.map((category) => (
               <option key={category} value={category}>
