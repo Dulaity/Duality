@@ -57,8 +57,8 @@ export default async function AccountPage() {
   });
 
   return (
-    <main className="page-shell flex flex-col gap-14 pb-20 pt-8 md:gap-16 md:pb-24 md:pt-10">
-      <Reveal as="section" className="space-y-5 pt-2 md:pt-6">
+    <main className="page-shell flex flex-col gap-10 pb-16 pt-5 md:gap-16 md:pb-24 md:pt-10">
+      <Reveal as="section" className="space-y-4 pt-1 md:space-y-5 md:pt-6">
         <p className="eyebrow">Customer account</p>
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
@@ -90,7 +90,7 @@ export default async function AccountPage() {
         </div>
       </Reveal>
 
-      <section className="grid gap-8 xl:grid-cols-2">
+      <section className="grid gap-6 md:gap-8 xl:grid-cols-2">
         <Reveal className="section-panel p-6 md:p-8">
           <div className="space-y-5">
             <p className="eyebrow">Profile</p>

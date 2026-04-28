@@ -465,7 +465,7 @@ export function CartExperience({ products }: { products: Product[] }) {
 
   if (!hydrated) {
     return (
-      <main className="page-shell py-16">
+      <main className="page-shell py-10 md:py-16">
         <p className="text-sm text-white/56">Loading your cart...</p>
       </main>
     );
@@ -473,10 +473,10 @@ export function CartExperience({ products }: { products: Product[] }) {
 
   if (enrichedItems.length === 0) {
     return (
-      <main className="page-shell py-16">
+      <main className="page-shell py-10 md:py-16">
         <Reveal as="section" className="section-panel p-10 text-center md:p-14">
           <p className="eyebrow">Cart</p>
-          <h1 className="mt-4 font-display text-5xl text-white">
+          <h1 className="mt-4 font-display text-4xl text-white md:text-5xl">
             Nothing here yet.
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-8 text-white/52">
@@ -495,14 +495,14 @@ export function CartExperience({ products }: { products: Product[] }) {
   }
 
   return (
-    <main className="page-shell flex flex-col gap-14 pb-20 pt-8 md:gap-16 md:pb-24 md:pt-10">
+    <main className="page-shell flex flex-col gap-10 pb-16 pt-5 md:gap-16 md:pb-24 md:pt-10">
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="afterInteractive"
         onLoad={() => setGatewayReady(true)}
       />
 
-      <Reveal as="section" className="space-y-5 pt-2 md:pt-6">
+      <Reveal as="section" className="space-y-4 pt-1 md:space-y-5 md:pt-6">
         <p className="eyebrow">Cart</p>
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
@@ -523,7 +523,7 @@ export function CartExperience({ products }: { products: Product[] }) {
         </div>
       </Reveal>
 
-      <section className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_26rem] xl:items-start">
+      <section className="grid gap-6 md:gap-8 xl:grid-cols-[minmax(0,1fr)_26rem] xl:items-start">
         <Reveal className="section-panel p-6 md:p-8">
           <div className="space-y-6">
             {enrichedItems.map(({ product, quantity, size, lineTotal }, index) => (

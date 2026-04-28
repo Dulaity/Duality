@@ -17,7 +17,7 @@ export default async function AdminLayout({
   const admin = await requireAdminPage("/admin");
 
   return (
-    <main className="page-shell flex flex-col gap-10 pb-20 pt-8 md:pb-24 md:pt-10">
+    <main className="page-shell flex flex-col gap-8 pb-16 pt-5 md:gap-10 md:pb-24 md:pt-10">
       <section className="admin-shell">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">

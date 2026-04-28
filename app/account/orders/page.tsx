@@ -51,8 +51,8 @@ export default async function AccountOrdersPage() {
   });
 
   return (
-    <main className="page-shell flex flex-col gap-12 pb-20 pt-8 md:gap-16 md:pb-24 md:pt-10">
-      <Reveal as="section" className="space-y-6 pt-2 md:pt-6">
+    <main className="page-shell flex flex-col gap-10 pb-16 pt-5 md:gap-16 md:pb-24 md:pt-10">
+      <Reveal as="section" className="space-y-4 pt-1 md:space-y-6 md:pt-6">
         <Link
           href="/account"
           className="button-secondary inline-flex w-fit items-center gap-2 px-4 py-2.5"
@@ -97,7 +97,7 @@ export default async function AccountOrdersPage() {
           </Link>
         </Reveal>
       ) : (
-        <section className="grid gap-8">
+        <section className="grid gap-6 md:gap-8">
           {orders.map((order, index) => (
             <Reveal
               key={order.id}

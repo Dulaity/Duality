@@ -53,8 +53,8 @@ export function StoreExperience({ products }: { products: Product[] }) {
     });
 
   return (
-    <main className="page-shell flex flex-col gap-14 pb-20 pt-8 md:gap-16 md:pb-24 md:pt-10">
-      <Reveal as="section" className="space-y-5 pt-2 md:pt-6">
+    <main className="page-shell flex flex-col gap-10 pb-16 pt-5 md:gap-16 md:pb-24 md:pt-10">
+      <Reveal as="section" className="space-y-4 pt-1 md:space-y-5 md:pt-6">
         <p className="eyebrow">Store</p>
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <h1 className="display-title max-w-4xl text-white">
@@ -149,7 +149,7 @@ export function StoreExperience({ products }: { products: Product[] }) {
       </Reveal>
 
       {visibleProducts.length > 0 ? (
-        <section className="grid gap-16 xl:grid-cols-2">
+        <section className="grid gap-11 md:gap-16 xl:grid-cols-2">
           {visibleProducts.map((product, index) => (
             <Reveal key={product.slug} delay={index * 60}>
               <ProductCard product={product} />

@@ -40,7 +40,7 @@ export function ProductDetail({
   }
 
   return (
-    <main className="page-shell flex flex-col gap-16 pb-20 pt-8 md:gap-20 md:pb-24 md:pt-10">
+    <main className="page-shell flex flex-col gap-10 pb-16 pt-5 md:gap-20 md:pb-24 md:pt-10">
       <Reveal>
         <Link
           href="/store"
@@ -55,7 +55,7 @@ export function ProductDetail({
         <Reveal className="md:sticky md:top-28">
           <ProductStage product={product} large />
           {catalogImages.length > 0 ? (
-            <div className="product-gallery mt-8">
+            <div className="product-gallery mt-5 md:mt-8">
               {catalogImages.map((image, index) => (
                 <div key={`${image.slice(0, 32)}-${index}`} className="product-gallery-frame">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -66,8 +66,8 @@ export function ProductDetail({
           ) : null}
         </Reveal>
 
-        <Reveal className="space-y-10" delay={80}>
-          <div className="space-y-5 border-b border-white/8 pb-8">
+        <Reveal className="space-y-7 md:space-y-10" delay={80}>
+          <div className="space-y-4 border-b border-white/8 pb-6 md:space-y-5 md:pb-8">
             <p className="eyebrow">{product.collection}</p>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="space-y-3">
@@ -166,7 +166,7 @@ export function ProductDetail({
 
       <Reveal
         as="section"
-        className="space-y-10 border-t border-white/8 pt-14 md:pt-16"
+        className="space-y-8 border-t border-white/8 pt-10 md:space-y-10 md:pt-16"
       >
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="space-y-3">
@@ -183,7 +183,7 @@ export function ProductDetail({
           </Link>
         </div>
 
-        <div className="grid gap-16 xl:grid-cols-2">
+        <div className="grid gap-11 md:gap-16 xl:grid-cols-2">
           {relatedProducts.map((relatedProduct, index) => (
             <Reveal key={relatedProduct.slug} delay={index * 70}>
               <ProductCard product={relatedProduct} compact />

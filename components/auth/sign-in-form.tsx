@@ -92,9 +92,9 @@ export function SignInForm({
   }
 
   return (
-    <main className="page-shell py-8 md:py-14">
+    <main className="page-shell py-6 md:py-14">
       <div className="auth-layout">
-        <Reveal className="auth-intro-panel order-2 space-y-6 xl:order-1">
+        <Reveal className="auth-intro-panel order-2 space-y-4 md:space-y-6 xl:order-1">
           <p className="eyebrow">Customer account</p>
           <h1 className="section-title max-w-lg text-white">
             Sign in and keep the checkout fast.

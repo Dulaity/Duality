@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function CheckoutCancelPage() {
   return (
-    <main className="page-shell py-12 md:py-16">
+    <main className="page-shell py-8 md:py-16">
       <Reveal as="section" className="section-panel p-10 text-center md:p-14">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
           <p className="eyebrow">Checkout paused</p>

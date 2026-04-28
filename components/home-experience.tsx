@@ -15,9 +15,9 @@ export function HomeExperience({
   featuredProducts: Product[];
 }) {
   return (
-    <main className="page-shell flex flex-col gap-20 pb-20 pt-8 md:gap-28 md:pb-24 md:pt-10">
-      <Reveal as="section" className="hero-grid pt-2 md:pt-6">
-        <div className="space-y-8">
+    <main className="page-shell flex flex-col gap-12 pb-16 pt-5 md:gap-28 md:pb-24 md:pt-10">
+      <Reveal as="section" className="hero-grid pt-1 md:pt-6">
+        <div className="space-y-6 md:space-y-8">
           <div className="hero-band">
             <p className="eyebrow">Duality / Meme Lab</p>
             <h1 className="display-title text-white">
@@ -65,7 +65,7 @@ export function HomeExperience({
       <Reveal
         as="section"
         id="featured"
-        className="space-y-10 border-t border-white/8 pt-14 md:space-y-12 md:pt-16"
+        className="space-y-8 border-t border-white/8 pt-10 md:space-y-12 md:pt-16"
       >
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
@@ -77,7 +77,7 @@ export function HomeExperience({
           </p>
         </div>
 
-        <div className="grid gap-14 xl:grid-cols-2">
+        <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
           {featuredProducts.map((product, index) => (
             <Reveal
               key={product.slug}
@@ -92,7 +92,7 @@ export function HomeExperience({
 
       <Reveal
         as="section"
-        className="grid gap-8 border-t border-white/8 pt-14 md:pt-16 xl:grid-cols-[0.7fr_1.3fr] xl:items-start"
+        className="grid gap-6 border-t border-white/8 pt-10 md:gap-8 md:pt-16 xl:grid-cols-[0.7fr_1.3fr] xl:items-start"
       >
         <div className="space-y-3">
           <p className="eyebrow">About Duality</p>
@@ -122,7 +122,7 @@ export function HomeExperience({
       <Reveal
         as="section"
         id="custom-drop"
-        className="grid gap-10 border-t border-white/8 pt-14 xl:grid-cols-[0.76fr_1.24fr] xl:items-start"
+        className="grid gap-7 border-t border-white/8 pt-10 md:gap-10 md:pt-14 xl:grid-cols-[0.76fr_1.24fr] xl:items-start"
       >
         <div className="space-y-5">
           <p className="eyebrow">Submit a joke</p>
