@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     "brainrot shirts",
     "anime delusions",
     "sports trauma",
+    "contrasting tshirt designs",
     "dark humor shirts",
     "wearable internet culture",
   ],

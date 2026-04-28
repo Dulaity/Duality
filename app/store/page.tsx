@@ -7,7 +7,7 @@ import { getStoreProducts } from "@/lib/product-store";
 export const metadata: Metadata = {
   title: "Store",
   description:
-    "Browse Duality brainrot, sports trauma, anime delusions, and niche internet culture tees.",
+    "Browse Duality brainrot, sports trauma, anime delusions, contrasting t-shirt designs, and niche internet culture tees.",
 };
 
 export default async function StorePage() {

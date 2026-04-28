@@ -2,6 +2,7 @@ export const shirtCategories = [
   "Brainrot",
   "Sports Trauma",
   "Anime Delusions",
+  "Contrasting T-Shirt Designs",
 ] as const;
 
 export type ShirtCategory = (typeof shirtCategories)[number];
@@ -206,6 +207,60 @@ const productSeeds: ProductSeed[] = [
       accent: "#06b6d4",
       glow: "#f97316",
       text: "#101010",
+    },
+  },
+  {
+    sku: "OD",
+    slug: "opposite-day-uniform",
+    name: "Opposite Day Uniform",
+    subtitle: "Contrasting tee for mixed signals",
+    price: 1099,
+    collection: "Contrasting T-Shirt Designs",
+    category: "Graphic Tee",
+    fit: "Oversized",
+    badge: "Two moods",
+    description:
+      "A split-personality tee for people who can disagree with themselves and still make it look intentional.",
+    story:
+      "Built around clashing panels, opposite moods, and a graphic layout that turns indecision into the entire point.",
+    vibe: "Clean from far away, questionable up close, exactly on brand.",
+    materials: "230 GSM soft cotton",
+    leadTime: "Dispatches in 72 hours",
+    sizes: ["S", "M", "L", "XL"],
+    highlights: ["Split-front graphic", "Oversized contrast fit", "Soft ribbed collar"],
+    palette: {
+      base: "#ffffff",
+      shell: "#111111",
+      accent: "#ffd93d",
+      glow: "#ff5f7a",
+      text: "#17120a",
+    },
+  },
+  {
+    sku: "DT",
+    slug: "double-take-department",
+    name: "Double Take Department",
+    subtitle: "Contrasting tee for impossible choices",
+    price: 1199,
+    collection: "Contrasting T-Shirt Designs",
+    category: "Statement Tee",
+    fit: "Boxy",
+    badge: "Visual argument",
+    description:
+      "Looks calm until the design starts arguing with itself. Useful for people with two tabs open in their personality.",
+    story:
+      "A sharper contrast drop with loud type, clean blocking, and just enough visual conflict to make strangers look twice.",
+    vibe: "Graphic, split, and built for main-character confusion.",
+    materials: "240 GSM combed cotton",
+    leadTime: "Made to order in 4 days",
+    sizes: ["S", "M", "L", "XL"],
+    highlights: ["Boxy crop", "High-contrast print", "Front and back graphic"],
+    palette: {
+      base: "#17120a",
+      shell: "#ffffff",
+      accent: "#ffcf24",
+      glow: "#2563eb",
+      text: "#ffffff",
     },
   },
 ];

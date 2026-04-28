@@ -34,6 +34,7 @@ export function StoreExperience({ products }: { products: Product[] }) {
       const matchesQuery =
         normalizedQuery.length === 0 ||
         product.name.toLowerCase().includes(normalizedQuery) ||
+        product.collection.toLowerCase().includes(normalizedQuery) ||
         product.description.toLowerCase().includes(normalizedQuery) ||
         product.category.toLowerCase().includes(normalizedQuery);
 
@@ -62,7 +63,7 @@ export function StoreExperience({ products }: { products: Product[] }) {
             poison.
           </h1>
           <p className="display-copy max-w-md">
-            Browse brainrot, sports trauma, and anime delusions without digging through the entire internet.
+            Browse brainrot, sports trauma, anime delusions, and contrasting designs without digging through the entire internet.
           </p>
         </div>
       </Reveal>
@@ -77,7 +78,7 @@ export function StoreExperience({ products }: { products: Product[] }) {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 className="field field-with-leading-icon"
-                placeholder="Search jokes, anime, sports..."
+                placeholder="Search jokes, anime, sports, contrast..."
               />
             </div>
           </label>
@@ -142,7 +143,9 @@ export function StoreExperience({ products }: { products: Product[] }) {
         className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
       >
         <p className="eyebrow">{visibleProducts.length} pieces visible</p>
-        <p className="text-sm text-white/40">Brainrot / Sports trauma / Anime delusions</p>
+        <p className="text-sm text-white/40">
+          Brainrot / Sports trauma / Anime delusions / Contrasting designs
+        </p>
       </Reveal>
 
       {visibleProducts.length > 0 ? (

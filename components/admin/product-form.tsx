@@ -114,6 +114,37 @@ const productTemplates: TemplateValues[] = [
       text: "#141414",
     },
   },
+  {
+    label: "Contrasting T-Shirt Designs",
+    values: {
+      sku: "CONTRAST-01",
+      slug: "new-contrasting-shirt",
+      name: "Opposite Moodboard",
+      subtitle: "Contrasting tee for mixed signals",
+      price: 1199,
+      collection: "Contrasting T-Shirt Designs",
+      category: "Graphic Tee",
+      fit: "Oversized",
+      badge: "Two moods",
+      description:
+        "A high-contrast tee for designs that deliberately clash: split layouts, opposite ideas, and visual jokes.",
+      story:
+        "Use this template for black-white, split-tone, mirrored, or opposite-concept shirts that still fit the internet-culture tone.",
+      vibe: "Sharp, graphic, and intentionally conflicted.",
+      materials: "230 GSM soft cotton",
+      leadTime: "Dispatches in 72 hours",
+      inventory: 24,
+    },
+    sizes: ["S", "M", "L", "XL"],
+    highlights: ["Split graphic layout", "Oversized contrast fit", "High-impact print"],
+    palette: {
+      base: "#ffffff",
+      shell: "#111111",
+      accent: "#ffd93d",
+      glow: "#2563eb",
+      text: "#17120a",
+    },
+  },
 ];
 
 function listToText(values: string[]) {
