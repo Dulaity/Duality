@@ -1,0 +1,106 @@
+WITH upserted_order AS (
+  INSERT INTO "Order" (
+    "id",
+    "code",
+    "userId",
+    "email",
+    "customerName",
+    "phone",
+    "status",
+    "fulfillmentStatus",
+    "paymentProvider",
+    "razorpayOrderId",
+    "razorpayPaymentId",
+    "currency",
+    "subtotal",
+    "shipping",
+    "tax",
+    "total",
+    "totalLabel",
+    "address1",
+    "address2",
+    "city",
+    "state",
+    "postalCode",
+    "paidAt",
+    "createdAt",
+    "updatedAt"
+  )
+  VALUES (
+    'order_demo_custom_paid_001',
+    'DLY-DEMO-CUSTOM-001',
+    NULL,
+    'demo.customer@example.com',
+    'Demo Customer',
+    '+91 90000 00000',
+    'captured',
+    'packed',
+    'razorpay',
+    'order_demo_custom_001',
+    'pay_demo_custom_001',
+    'INR',
+    998,
+    0,
+    0,
+    998,
+    '₹998',
+    'Demo Street 12',
+    NULL,
+    'Hyderabad',
+    'Telangana',
+    '500001',
+    NOW() - INTERVAL '2 days',
+    NOW() - INTERVAL '2 days',
+    NOW()
+  )
+  ON CONFLICT ("code") DO UPDATE
+  SET "email" = EXCLUDED."email",
+      "customerName" = EXCLUDED."customerName",
+      "phone" = EXCLUDED."phone",
+      "status" = EXCLUDED."status",
+      "fulfillmentStatus" = EXCLUDED."fulfillmentStatus",
+      "paymentProvider" = EXCLUDED."paymentProvider",
+      "razorpayOrderId" = EXCLUDED."razorpayOrderId",
+      "razorpayPaymentId" = EXCLUDED."razorpayPaymentId",
+      "currency" = EXCLUDED."currency",
+      "subtotal" = EXCLUDED."subtotal",
+      "shipping" = EXCLUDED."shipping",
+      "tax" = EXCLUDED."tax",
+      "total" = EXCLUDED."total",
+      "totalLabel" = EXCLUDED."totalLabel",
+      "address1" = EXCLUDED."address1",
+      "address2" = EXCLUDED."address2",
+      "city" = EXCLUDED."city",
+      "state" = EXCLUDED."state",
+      "postalCode" = EXCLUDED."postalCode",
+      "paidAt" = EXCLUDED."paidAt",
+      "createdAt" = EXCLUDED."createdAt",
+      "updatedAt" = NOW()
+  RETURNING "id"
+),
+deleted_items AS (
+  DELETE FROM "OrderItem"
+  WHERE "orderId" = (SELECT "id" FROM upserted_order)
+)
+INSERT INTO "OrderItem" (
+  "id",
+  "orderId",
+  "slug",
+  "sku",
+  "name",
+  "size",
+  "quantity",
+  "price",
+  "lineTotal"
+)
+VALUES (
+  'order_item_demo_custom_tees_001',
+  (SELECT "id" FROM upserted_order),
+  'custom-tshirt',
+  'CUSTOM',
+  'Custom T-Shirt',
+  'M',
+  2,
+  499,
+  998
+);
