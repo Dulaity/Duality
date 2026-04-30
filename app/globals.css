@@ -1042,6 +1042,241 @@ section[id] {
   box-shadow: 4px 4px 0 var(--ink);
 }
 
+.meme-drop-wall {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(28rem, 33rem + 4vw, 40rem);
+  border: 2px solid var(--ink);
+  border-radius: 0.8rem;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(255, 95, 122, 0.2), transparent 20%),
+    radial-gradient(circle at 88% 14%, rgba(37, 99, 235, 0.16), transparent 18%),
+    linear-gradient(135deg, rgba(255, 217, 61, 0.44) 0 25%, transparent 25% 50%, rgba(255, 217, 61, 0.24) 50% 75%, transparent 75%),
+    #ffffff;
+  background-size: auto, auto, 36px 36px, auto;
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.meme-drop-wall::before,
+.meme-drop-wall::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border: 2px solid rgba(23, 18, 10, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.meme-drop-wall::before {
+  right: -5rem;
+  top: 7rem;
+  width: 18rem;
+  height: 18rem;
+}
+
+.meme-drop-wall::after {
+  left: -4rem;
+  bottom: 4rem;
+  width: 13rem;
+  height: 13rem;
+}
+
+.meme-drop-marquee {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 6;
+  display: flex;
+  gap: 0.65rem;
+  overflow: hidden;
+}
+
+.meme-drop-marquee span,
+.meme-sticker-rack span,
+.meme-card-tag {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 rgba(23, 18, 10, 0.9);
+}
+
+.meme-drop-marquee span {
+  flex: 0 0 auto;
+  padding: 0.62rem 0.85rem;
+}
+
+.meme-drop-track {
+  position: relative;
+  min-height: inherit;
+}
+
+.meme-shirt-card {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: min(62%, 22rem);
+  gap: 0.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 1.1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 199, 0.92)),
+    var(--card-base, #ffffff);
+  padding: 0.85rem;
+  box-shadow: 8px 8px 0 rgba(23, 18, 10, 0.88);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+  animation: meme-card-float 6.5s ease-in-out infinite;
+}
+
+.meme-shirt-card:hover {
+  transform: translate(-3px, -4px) rotate(var(--hover-rotate, 0deg));
+  box-shadow: 12px 12px 0 var(--ink);
+}
+
+.meme-shirt-card-0 {
+  left: 24%;
+  top: 16%;
+  z-index: 5;
+  width: min(70%, 25rem);
+  --hover-rotate: -1.5deg;
+  animation-delay: -0.4s;
+}
+
+.meme-shirt-card-1 {
+  left: 4%;
+  top: 36%;
+  z-index: 3;
+  width: min(43%, 16.5rem);
+  transform: rotate(-7deg);
+  --hover-rotate: -8deg;
+  animation-delay: -1.4s;
+}
+
+.meme-shirt-card-2 {
+  right: 3%;
+  top: 38%;
+  z-index: 4;
+  width: min(42%, 16rem);
+  transform: rotate(6deg);
+  --hover-rotate: 5deg;
+  animation-delay: -2.1s;
+}
+
+.meme-shirt-card-3 {
+  right: 12%;
+  bottom: 7%;
+  z-index: 2;
+  width: min(40%, 15rem);
+  transform: rotate(-3deg);
+  --hover-rotate: -4deg;
+  animation-delay: -3s;
+}
+
+.meme-shirt-empty {
+  left: 50%;
+  top: 50%;
+  width: min(72%, 24rem);
+  transform: translate(-50%, -50%);
+}
+
+.meme-card-tag {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--card-accent, var(--yellow));
+  padding: 0.54rem 0.75rem;
+}
+
+.meme-shirt-frame {
+  overflow: hidden;
+  display: grid;
+  min-height: clamp(12rem, 18vw, 18rem);
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 217, 61, 0.46), transparent 25%),
+    #ffffff;
+}
+
+.meme-shirt-card-1 .meme-shirt-frame,
+.meme-shirt-card-2 .meme-shirt-frame,
+.meme-shirt-card-3 .meme-shirt-frame {
+  min-height: clamp(7rem, 10vw, 10rem);
+}
+
+.meme-shirt-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(1.03) contrast(1.02) drop-shadow(0 16px 20px rgba(23, 18, 10, 0.14));
+}
+
+.meme-shirt-fallback {
+  display: grid;
+  width: 62%;
+  aspect-ratio: 0.82;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 28% 28% 12% 12%;
+  background: var(--card-glow, var(--yellow));
+  color: var(--ink);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.meme-card-copy {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.meme-card-copy strong {
+  color: var(--ink);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1;
+}
+
+.meme-shirt-card-1 .meme-card-copy strong,
+.meme-shirt-card-2 .meme-card-copy strong,
+.meme-shirt-card-3 .meme-card-copy strong {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.meme-card-copy small {
+  color: rgba(23, 18, 10, 0.56);
+  font-size: 0.75rem;
+  font-weight: 850;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.meme-sticker-rack {
+  position: absolute;
+  left: 1.15rem;
+  bottom: 1.15rem;
+  z-index: 7;
+  display: flex;
+  max-width: 88%;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.meme-sticker-rack span {
+  padding: 0.58rem 0.78rem;
+}
+
 .product-card {
   display: grid;
   gap: 1.65rem;
@@ -1221,6 +1456,23 @@ section[id] {
 .reveal-in {
   opacity: 1;
   transform: translateY(0) rotate(0);
+}
+
+@keyframes meme-card-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meme-shirt-card {
+    animation: none;
+  }
 }
 
 .text-white,
@@ -1404,13 +1656,89 @@ section[id] {
   .button-primary:hover,
   .button-secondary:hover,
   .filter-chip:hover,
-  .stage-panel:hover {
+  .stage-panel:hover,
+  .meme-shirt-card:hover {
     transform: none;
     box-shadow: 3px 3px 0 rgba(23, 18, 10, 0.9);
   }
 
-  .stage-panel:hover {
+  .stage-panel:hover,
+  .meme-drop-wall {
     box-shadow: 5px 5px 0 rgba(23, 18, 10, 0.9);
+  }
+
+  .meme-drop-wall {
+    min-height: auto;
+    padding: 0.9rem;
+    border-radius: 0.72rem;
+  }
+
+  .meme-drop-marquee,
+  .meme-sticker-rack {
+    position: static;
+  }
+
+  .meme-drop-marquee {
+    margin-bottom: 0.8rem;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+  }
+
+  .meme-drop-track {
+    display: flex;
+    min-height: auto;
+    gap: 0.85rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.2rem 0.15rem 0.95rem;
+    scroll-padding-inline: 0.15rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .meme-shirt-card,
+  .meme-shirt-card-0,
+  .meme-shirt-card-1,
+  .meme-shirt-card-2,
+  .meme-shirt-card-3,
+  .meme-shirt-empty {
+    position: relative;
+    inset: auto;
+    flex: 0 0 min(82%, 18rem);
+    width: auto;
+    transform: none;
+    animation: none;
+    scroll-snap-align: start;
+    box-shadow: 4px 4px 0 rgba(23, 18, 10, 0.88);
+  }
+
+  .meme-shirt-card-0 {
+    flex-basis: min(88%, 20rem);
+  }
+
+  .meme-shirt-frame,
+  .meme-shirt-card-1 .meme-shirt-frame,
+  .meme-shirt-card-2 .meme-shirt-frame,
+  .meme-shirt-card-3 .meme-shirt-frame {
+    min-height: 12rem;
+  }
+
+  .meme-card-copy strong,
+  .meme-shirt-card-1 .meme-card-copy strong,
+  .meme-shirt-card-2 .meme-card-copy strong,
+  .meme-shirt-card-3 .meme-card-copy strong {
+    font-size: 1.55rem;
+  }
+
+  .meme-sticker-rack {
+    gap: 0.48rem;
+  }
+
+  .meme-drop-marquee span,
+  .meme-sticker-rack span {
+    padding: 0.52rem 0.68rem;
+    font-size: 0.63rem;
+    box-shadow: 2px 2px 0 rgba(23, 18, 10, 0.9);
   }
 
   .field {

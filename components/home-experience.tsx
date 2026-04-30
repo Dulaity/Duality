@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { CustomDropForm } from "@/components/custom-drop-form";
+import { MemeDropWall } from "@/components/meme-drop-wall";
 import { ProductCard } from "@/components/product-card";
-import { DualityStage } from "@/components/duality-stage";
 import { Reveal } from "@/components/reveal";
 import type { Product } from "@/lib/products";
 
@@ -53,13 +53,7 @@ export function HomeExperience({
           </div>
         </div>
 
-        <DualityStage
-          label="New idea"
-          meta="Unwearable"
-          title="Internet Lore"
-          footer="Made for people who overshare through clothing."
-          large
-        />
+        <MemeDropWall products={featuredProducts} />
       </Reveal>
 
       <Reveal
