@@ -80,3 +80,7 @@ export const adminOrderUpdateSchema = z.object({
 export const adminUserUpdateSchema = z.object({
   role: z.enum(["CUSTOMER", "ADMIN"]),
 });
+
+export const adminIdeaSubmissionUpdateSchema = z.object({
+  status: z.enum(["new", "reviewing", "quoted", "accepted", "rejected"]),
+});

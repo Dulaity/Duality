@@ -708,6 +708,93 @@ section[id] {
   font-weight: 900;
 }
 
+.idea-upload-panel {
+  display: grid;
+  gap: 1rem;
+  border: 2px dashed rgba(23, 18, 10, 0.24);
+  border-radius: 1.2rem;
+  background: rgba(255, 249, 214, 0.72);
+  padding: 1rem;
+}
+
+.idea-upload-grid,
+.idea-submission-image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.idea-upload-item,
+.idea-submission-image,
+.idea-upload-empty,
+.idea-submission-empty {
+  overflow: hidden;
+  min-height: 7.5rem;
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  background:
+    linear-gradient(135deg, rgba(255, 217, 61, 0.24) 0 25%, transparent 25% 50%, rgba(255, 217, 61, 0.16) 50% 75%, transparent 75%),
+    #ffffff;
+  background-size: 26px 26px;
+  box-shadow: 3px 3px 0 rgba(23, 18, 10, 0.86);
+}
+
+.idea-upload-item,
+.idea-submission-image {
+  position: relative;
+  display: block;
+}
+
+.idea-upload-item img,
+.idea-submission-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.idea-upload-item button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  width: 1.9rem;
+  height: 1.9rem;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 rgba(23, 18, 10, 0.86);
+}
+
+.idea-upload-empty,
+.idea-submission-empty {
+  display: grid;
+  grid-column: 1 / -1;
+  place-items: center;
+  color: rgba(23, 18, 10, 0.52);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.idea-submission-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr);
+  gap: 1.25rem;
+}
+
+.idea-submission-copy {
+  border: 2px solid rgba(23, 18, 10, 0.16);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 1rem;
+  color: rgba(23, 18, 10, 0.68);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
 .admin-textarea {
   min-height: 9rem;
   resize: vertical;
@@ -1474,8 +1561,14 @@ section[id] {
 
   .admin-metric-grid,
   .admin-form-grid,
-  .admin-image-grid {
+  .admin-image-grid,
+  .idea-submission-grid {
     grid-template-columns: 1fr;
+  }
+
+  .idea-upload-grid,
+  .idea-submission-image-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .admin-shell,

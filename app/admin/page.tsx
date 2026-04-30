@@ -16,7 +16,7 @@ function monthLabel(key: string) {
 }
 
 export default async function AdminDashboardPage() {
-  const [orders, usersCount, productsCount, soldOutProducts, orderItems] =
+  const [orders, usersCount, productsCount, ideaCount, soldOutProducts, orderItems] =
     await Promise.all([
       prisma.order.findMany({
         where: {
@@ -30,6 +30,7 @@ export default async function AdminDashboardPage() {
       }),
       prisma.user.count(),
       prisma.product.count(),
+      prisma.ideaSubmission.count(),
       prisma.product.findMany({
         where: {
           inventory: 0,
@@ -127,6 +128,11 @@ export default async function AdminDashboardPage() {
           <span>Customers</span>
           <strong>{usersCount}</strong>
           <small>{productsCount} products in catalog</small>
+        </div>
+        <div className="admin-metric-card">
+          <span>Ideas</span>
+          <strong>{ideaCount}</strong>
+          <small>Custom shirt submissions</small>
         </div>
       </section>
 
